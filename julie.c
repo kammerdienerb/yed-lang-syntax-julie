@@ -101,35 +101,52 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-string");
-            RANGE("\""); ONELINE(); SKIP("\\\\\""); ENDRANGE("\"");
+            RANGE("\""); ONELINE(); SKIP("\\\\\"");
+                APUSH("&code-escape");
+                    REGEX("\\\\.");
+                APOP();
+            ENDRANGE("\"");
         APOP();
 
         APUSH("&code-constant");
-            KWD("nil");
+            REGEXSUB("(^|[([:space:]])(nil)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-number");
+            REGEXSUB("(^|[([:space:]])('[^[:space:]()#]+)", 2);
             REGEXSUB("(^|[^[:alnum:]_])(-?([[:digit:]]+\\.[[:digit:]]*)|(([[:digit:]]*\\.[[:digit:]]+)))"WB, 2);
             REGEXSUB("(^|[^[:alnum:]_])(-?[[:digit:]]+)"WB, 2);
             REGEXSUB("(^|[^[:alnum:]_])(0[xX][0-9a-fA-F]+)"WB, 2);
         APOP();
 
         APUSH("&code-keyword");
-            REGEX("use-package"WB);
-            REGEX("add-package-directory"WB);
-            REGEX("eval-file"WB);
-            KWD("fn");
-            KWD("lambda");
+            REGEXSUB("(^|[([:space:]])(use-package)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(add-package-directory)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(eval-file)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(typeof)($|[)[:space:]])", 2);
+        APOP();
+
+        APUSH("&code-typename");
+            REGEXSUB("(^|[([:space:]])(fn)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(lambda)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(list)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(object)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(sint)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(uint)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(float)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(string)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(symbol)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-control-flow");
-            KWD("if");
-            KWD("elif");
-            KWD("else");
-            KWD("while");
-            KWD("foreach");
-            KWD("repeat");
-            KWD("do");
+            REGEXSUB("(^|[([:space:]])(if)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(elif)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(else)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(select)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(while)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(foreach)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(repeat)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(do)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-preprocessor");
@@ -141,8 +158,44 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-fn-call");
-            REGEXSUB("^[[:space:]]*([^[:space:]()]+)", 1);
-            REGEXSUB("\\([[:space:]]*([^()[:space:]#]+)", 1);
+            REGEXSUB("(^|[([:space:]])(==)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(:=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\+=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\+)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\-=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\->)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\-)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\*=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(\\*)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(/=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(/)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(%=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(%)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(~)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(&=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(&)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(|=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(|)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(^=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(^)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(<<=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(<<)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(>>=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(>>)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(!=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(<-)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(<=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(<)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(>=)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(>)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(not)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(and)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(or)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(:)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(in)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(')($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(`)($|[)[:space:]])", 2);
         APOP();
     ENDSYN();
 
