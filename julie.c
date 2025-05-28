@@ -147,6 +147,7 @@ int yed_plugin_boot(yed_plugin *self) {
             REGEXSUB("(^|[([:space:]])(foreach)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(repeat)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(do)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(match)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-preprocessor");
