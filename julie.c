@@ -160,6 +160,7 @@ int yed_plugin_boot(yed_plugin *self) {
 
         APUSH("&code-fn-call");
             REGEXSUB("(^|[([:space:]])(==)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(=~)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(=)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(:=)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(\\+=)($|[)[:space:]])", 2);
