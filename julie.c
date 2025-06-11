@@ -124,6 +124,8 @@ int yed_plugin_boot(yed_plugin *self) {
             REGEXSUB("(^|[([:space:]])(add-package-directory)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(eval-file)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(typeof)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(define-class)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(new-instance)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-typename");
@@ -198,6 +200,7 @@ int yed_plugin_boot(yed_plugin *self) {
             REGEXSUB("(^|[([:space:]])(in)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(')($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(`)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(@)($|[)[:space:]])", 2);
         APOP();
     ENDSYN();
 
