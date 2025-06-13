@@ -126,6 +126,7 @@ int yed_plugin_boot(yed_plugin *self) {
             REGEXSUB("(^|[([:space:]])(typeof)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(define-class)($|[)[:space:]])", 2);
             REGEXSUB("(^|[([:space:]])(new-instance)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(move)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-typename");
