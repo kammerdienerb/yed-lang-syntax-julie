@@ -120,7 +120,7 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-keyword");
-            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|eval|eval-sandboxed|eval-file|typeof)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|eval|eval-sandboxed|eval-file|typeof|define-class|new-instance|move)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-typename");
@@ -140,7 +140,7 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-fn-call");
-            REGEXSUB("(^|[([:space:]])(==|=~|=|:=|\\+=|\\+|\\-=|\\->|\\-|\\*=|\\*|/=|/|%=|%|~|\\&=|\\&|\\|=|\\||\\^=|\\^|<<=|<<|>>=|>>|!=|<-|<=|<|>=|>|not|and|or|:|in|'|`)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(==|=~|=|:=|\\+=|\\+|\\-=|\\->|\\-|\\*=|\\*|/=|/|%=|%|~|\\&=|\\&|\\|=|\\||\\^=|\\^|<<=|<<|>>=|>>|!=|<-|<=|<|>=|>|not|and|or|:|in|'|`|@)($|[)[:space:]])", 2);
         APOP();
     ENDSYN();
 
