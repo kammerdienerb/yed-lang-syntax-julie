@@ -120,11 +120,11 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-keyword");
-            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|eval|eval-sandboxed|eval-file|typeof|define-class|new-instance|move)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|parse-julie|eval-file|eval-sandboxed|actor-spawn|actor-join|actor-stop|actor-send|actor-receive|actor-try-receive|typeof|define-class|new-instance|move)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-typename");
-            REGEXSUB("(^|[([:space:]])(fn|lambda|list|object|sint|uint|float|string|symbol)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(fn|lambda|list|object|sint|uint|float|string|symbol|error|actor)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-control-flow");
