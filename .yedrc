@@ -1,3 +1,0 @@
-plugin-unload 'ypm/plugins/lang/syntax/julie'
-plugins-add-dir .
-plugin-load 'julie'
