@@ -109,7 +109,7 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-constant");
-            REGEXSUB("(^|[([:space:]])(nil)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(nil|parent-actor)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-number");
