@@ -121,7 +121,7 @@ int yed_plugin_boot(yed_plugin *self) {
         APOP();
 
         APUSH("&code-keyword");
-            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|parse-julie|eval-file|eval-sandboxed|actor-spawn|actor-join|actor-stop|actor-send|actor-receive|actor-try-receive|typeof|define-class|new-instance|move|unbind)($|[)[:space:]])", 2);
+            REGEXSUB("(^|[([:space:]])(use-package|add-package-directory|parse-julie|eval-file|eval-sandboxed|actor-spawn|actor-join|actor-stop|actor-send|actor-receive|actor-try-receive|typeof|define-class|new-instance|move|is-bound|unbind)($|[)[:space:]])", 2);
         APOP();
 
         APUSH("&code-typename");
